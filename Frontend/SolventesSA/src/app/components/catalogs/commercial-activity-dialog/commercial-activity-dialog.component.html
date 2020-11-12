@@ -1,0 +1,13 @@
+<h2 mat-dialog-title>{{ title }}</h2>
+<mat-dialog-content [formGroup]="form">
+  <mat-form-field>
+    <mat-label>Actividad comercial</mat-label>
+    <input matInput type="text" minlength="3" #comercial_activity placeholder="Actividad comercial" formControlName="comercial_activity">
+    <div mat-error>
+    </div>
+  </mat-form-field>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button (click)="onCancel()">Cancelar</button>
+  <button mat-raised-button color="primary" [disabled]="!form.valid" (click)="onSubmit()" cdkFocusInitial>Guardar</button>
+</mat-dialog-actions>

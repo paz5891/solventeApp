@@ -1,0 +1,24 @@
+h1{
+  color: gray;
+  text-align: center;
+  top: 5px;
+}
+
+table {
+  width: 100%;
+}
+
+th{
+  padding-left: 7px !important;
+  padding-right: 7px !important;
+}
+
+td{
+  padding-left: 7px !important;
+  padding-right: 7px !important;
+}
+
+.container-table {
+  width: 100%;
+  overflow: auto;
+}

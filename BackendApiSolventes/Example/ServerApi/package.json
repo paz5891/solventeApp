@@ -1,0 +1,33 @@
+{
+  "name": "apisolvente",
+  "version": "1.0.0",
+  "description": "centro de aplicaciones para la logica del sistema de solventes",
+  "main": "server.js",
+  "scripts": {
+    "test": "ERROR",
+    "start": "SET NODE_ENV=development&& nodemon --exec babel-node server"
+  },
+  "author": "estudiantes de la universidad Mariano Galvez de Guatemala",
+  "license": "ISC",
+  "dependencies": {
+    "@babel/core": "^7.4.5",
+    "@babel/node": "^7.4.5",
+    "@babel/preset-env": "^7.4.5",
+    "cors": "^2.8.5",
+    "express": "4.17.1",
+    "helmet": "4.1.0",
+    "mime-types": "^2.1.27",
+    "mssql": "6.2.1",
+    "multer": "^1.4.2",
+    "sql-injection": "0.0.6"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.4.4",
+    "@babel/register": "^7.4.4",
+    "chai": "^4.2.0",
+    "chai-http": "^4.3.0",
+    "faker": "^4.1.0",
+    "mocha": "^6.1.4",
+    "nodemon": "^1.19.1"
+  }
+}

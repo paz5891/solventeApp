@@ -1,0 +1,19 @@
+h1{
+  color: gray;
+  text-align: center;
+  top: 5px;
+}
+.row_list {
+  display: flex;
+  flex-direction: row;
+}
+
+.col_list {
+  flex: 1;
+  margin-right: 5px;
+}
+
+.col_list:last-child {
+  margin-right: 0;
+}
+

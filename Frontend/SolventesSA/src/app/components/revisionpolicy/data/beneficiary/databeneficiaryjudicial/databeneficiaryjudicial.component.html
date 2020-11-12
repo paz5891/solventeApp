@@ -1,0 +1,63 @@
+<mat-card class="shipping-card">
+  <mat-card-content>
+    <div class="row_list">
+      <div class="col_list">
+        <div class="row_list">
+          <div class="col_list"> <strong>id Beneficario:</strong></div>
+          <div class="col_list">{{beneficiary.id_beneficiary}}</div>
+        </div>
+      </div>
+       <div class="col_list">
+        <div class="row_list">
+          <div class="col_list"> <strong>NIT:</strong></div>
+          <div class="col_list">{{beneficiary.nit}}</div>
+        </div>
+      </div>
+    </div>
+    <br>
+    <div class="row_list">
+      <div class="col_list">
+        <div class="row_list">
+          <div class="col_list"> <strong>Nombre de la Empresa:</strong></div>
+          <div class="col_list">{{beneficiary.business_name}}</div>
+        </div>
+      </div>
+    </div>
+    <br>
+    <div class="row_list">
+      <div class="col_list">
+        <div class="row_list">
+          <div class="col_list"> <strong>Departamento:</strong></div>
+          <div class="col_list">{{beneficiary.department}}</div>
+        </div>
+      </div>
+      <div class="col_list">
+        <div class="row_list">
+          <div class="col_list"> <strong>Municipio:</strong></div>
+          <div class="col_list">{{beneficiary.municipality}}</div>
+        </div>
+      </div>
+       <div class="col_list">
+        <div class="row_list">
+          <div class="col_list"> <strong>Actividad Comercial:</strong></div>
+          <div class="col_list">{{beneficiary.comercial_activity}}</div>
+        </div>
+      </div>
+    </div>
+    <br>
+    <div class="row_list">
+      <div class="col_list">
+        <div class="row_list">
+          <div class="col_list"> <strong>Numero de Patente de Comercio:</strong></div>
+          <div class="col_list">{{beneficiary.commercial_patent_number}}</div>
+        </div>
+      </div>
+      <div class="col_list">
+        <div class="row_list">
+          <div class="col_list"> <strong>Fecha de Constitucin:</strong></div>
+          <div class="col_list">{{beneficiary.constitution_date | date: 'dd/MM/yyyy'}}</div>
+        </div>
+      </div>
+    </div>
+  </mat-card-content>
+</mat-card>

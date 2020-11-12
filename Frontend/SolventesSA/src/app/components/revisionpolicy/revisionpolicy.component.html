@@ -1,0 +1,33 @@
+<ng-container *ngIf="onLoading(); else revision">
+
+  <ng-container *ngIf="trust.business_name !== null; else judicialoparticular">
+    <app-datatrustjudicial [trust]='trust'></app-datatrustjudicial>
+  </ng-container>
+  <ng-template #judicialoparticular>
+    <app-datatrustparticular [trust]="trust"></app-datatrustparticular>
+  </ng-template>
+  <br>
+  <app-datapolicy [policy]="policy"></app-datapolicy>
+
+  <mat-card class="shipping-card">
+    <mat-card-title>
+      <h1>DATOS DE LOS BENEFICIARIOS</h1>
+    </mat-card-title>
+    <mat-card-content *ngFor="let item of beneficiary">
+      <ng-container *ngIf="item.business_name !== null; else Beneficaryparticular">
+        <app-databeneficiaryjudicial [beneficiary]='item'></app-databeneficiaryjudicial>
+      </ng-container>
+      <ng-template #Beneficaryparticular>
+        <app-databeneficiaryparticular [beneficiary]="item"></app-databeneficiaryparticular>
+      </ng-template>
+    </mat-card-content>
+  </mat-card>
+  <br>
+  <app-dataagent [agent]="agent"></app-dataagent>
+  <app-attachrevision [attach]="attach"></app-attachrevision>
+  <app-policycomment [id_policy]="id_policy"></app-policycomment>
+</ng-container>
+<ng-template #revision>
+
+</ng-template>
+

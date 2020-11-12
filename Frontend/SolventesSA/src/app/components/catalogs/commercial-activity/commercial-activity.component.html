@@ -1,0 +1,44 @@
+<h1>Catálogo de Actividades Comerciales</h1>
+<div class="action-button">
+    <button mat-fab color="primary" (click)="openDialog()" aria-label="Agregar actividad comercial">
+      <mat-icon>add</mat-icon>
+    </button>
+</div>
+<div class="container-table mat-elevation-z8">
+    <table mat-table [dataSource]="items" matSort>
+
+        <ng-container matColumnDef="id_comercial_activity">
+            <th mat-header-cell *matHeaderCellDef>ID</th>
+            <td mat-cell *matCellDef="let item">{{item.id_comercial_activity}}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="comercial_activity">
+            <th mat-header-cell *matHeaderCellDef>Actividad Comercial</th>
+            <td mat-cell *matCellDef="let item">{{item.comercial_activity}}</td>
+        </ng-container>
+
+        <!-- edit Column -->
+        <ng-container matColumnDef="edit">
+          <th mat-header-cell *matHeaderCellDef>Editar</th>
+          <td mat-cell *matCellDef="let item">
+            <button mat-icon-button (click)="onUpdate(item)">
+              <mat-icon>edit</mat-icon>
+            </button>
+          </td>
+        </ng-container>
+
+        <!-- Delete Column -->
+        <ng-container matColumnDef="delete">
+         <th mat-header-cell *matHeaderCellDef>Eliminar</th>
+          <td mat-cell *matCellDef="let item">
+            <button mat-icon-button (click)="onDelete(item)">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+</div>
+<mat-paginator [pageSizeOptions]="[8, 16, 32]" showFirstLastButtons></mat-paginator>

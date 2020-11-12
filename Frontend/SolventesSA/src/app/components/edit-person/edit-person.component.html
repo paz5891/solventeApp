@@ -1,0 +1,231 @@
+<mat-vertical-stepper linear #stepper>
+  <mat-step [stepControl]="formPerson">
+    <form *ngIf="formPerson" [formGroup]="formPerson" (ngSubmit)="onSubmit()">
+      <ng-template matStepLabel>Datos persona</ng-template>
+      <div class="example-container" *ngIf="selectedTypePerson != 1007">
+        <img [src]="avatarPreview" alt="Avatar" width="200px" height="200px" />
+        <input
+          type="file"
+          (change)="uploadAvatar($event.target.files)"
+          accept="image/*"
+        />
+        <input type="hidden" formControlName="avatar" />
+      </div>
+      <div class="example-container">
+        <input type="hidden" formControlName="id_person" />
+        <mat-form-field appearance="fill">
+          <mat-label>Tipo de persona</mat-label>
+          <mat-select
+            formControlName="id_type_person"
+            [(value)]="selectedTypePerson"
+          >
+            <mat-option
+              *ngFor="let typePerson of typesPerson"
+              [value]="typePerson.id_type_person"
+            >
+              {{ typePerson.type_person }}
+            </mat-option>
+          </mat-select>
+          <mat-error
+            *ngIf="formPerson.get('id_type_person').hasError('required')"
+          >
+            El tipo de persona es <strong>requerido</strong>
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+          <mat-label>Departamento</mat-label>
+          <mat-select
+            [(value)]="selectedDeparment"
+            (valueChange)="onChangeDeparment()"
+          >
+            <mat-option
+              *ngFor="let department of deparments"
+              [value]="department.id_department"
+            >
+              {{ department.department }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+          <mat-label>Municipio</mat-label>
+          <mat-select formControlName="id_municipality">
+            <mat-option
+              *ngFor="let municipality of municipalities"
+              [value]="municipality.id_municipality"
+            >
+              {{ municipality.municipality }}
+            </mat-option>
+          </mat-select>
+          <mat-error
+            *ngIf="formPerson.get('id_municipality').hasError('required')"
+          >
+            El municipio es <strong>requerido</strong>
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+          <mat-label>NIT</mat-label>
+          <input matInput formControlName="nit" />
+          <mat-error *ngIf="formPerson.get('nit').hasError('required')">
+            El NIT es <strong>requerido</strong>
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+          <mat-label>Email</mat-label>
+          <input matInput formControlName="email" />
+          <mat-error *ngIf="formPerson.get('email').hasError('required')">
+            El email es <strong>requerido</strong>
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="example-container" *ngIf="selectedTypePerson != 1007">
+        <mat-form-field appearance="fill">
+          <mat-label>CUI</mat-label>
+          <input matInput formControlName="cui" />
+          <mat-error *ngIf="formPerson.get('cui').hasError('required')">
+            El CUI es <strong>requerido</strong>
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+          <mat-label>Primer nombre</mat-label>
+          <input matInput formControlName="first_name" />
+          <mat-error *ngIf="formPerson.get('first_name').hasError('required')">
+            El primer nombre es <strong>requerido</strong>
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+          <mat-label>Segundo nombre</mat-label>
+          <input matInput formControlName="second_name" />
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+          <mat-label>Primer apellido</mat-label>
+          <input matInput formControlName="first_surname" />
+          <mat-error
+            *ngIf="formPerson.get('first_surname').hasError('required')"
+          >
+            El primer apellido es <strong>requerido</strong>
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+          <mat-label>Segundo apellido</mat-label>
+          <input matInput formControlName="second_surname" />
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+          <mat-label>Fecha de nacimiento</mat-label>
+          <input
+            matInput
+            [matDatepicker]="picker"
+            formControlName="date_of_birth"
+          />
+          <mat-datepicker-toggle
+            matSuffix
+            [for]="picker"
+          ></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+          <mat-error
+            *ngIf="formPerson.get('date_of_birth').hasError('required')"
+          >
+            La fecha de nacimiento es <strong>requerida</strong>
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+          <mat-label>Rol</mat-label>
+          <mat-select formControlName="id_rol">
+            <mat-option *ngFor="let rol of roles" [value]="rol.id_rol">
+              {{ rol.rol }}
+            </mat-option>
+          </mat-select>
+          <mat-error *ngIf="formPerson.get('id_rol').hasError('required')">
+            El rol es <strong>requerido</strong>
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+          <mat-label>Sexo</mat-label>
+          <mat-select formControlName="sexo">
+            <mat-option *ngFor="let sexo of sexos" [value]="sexo.id_sexo">
+              {{ sexo.sexo }}
+            </mat-option>
+          </mat-select>
+          <mat-error *ngIf="formPerson.get('sexo').hasError('required')">
+            El sexo es <strong>requerido</strong>
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="example-container" *ngIf="selectedTypePerson != 1006">
+        <mat-form-field appearance="fill">
+          <mat-label>Razon social</mat-label>
+          <input matInput formControlName="business_name" />
+          <mat-error
+            *ngIf="formPerson.get('business_name').hasError('required')"
+          >
+            La razon social es <strong>requerido</strong>
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+          <mat-label>Fecha de constitucion</mat-label>
+          <input
+            matInput
+            [matDatepicker]="picker2"
+            formControlName="constitution_date"
+          />
+          <mat-datepicker-toggle
+            matSuffix
+            [for]="picker2"
+          ></mat-datepicker-toggle>
+          <mat-datepicker #picker2></mat-datepicker>
+          <mat-error
+            *ngIf="formPerson.get('constitution_date').hasError('required')"
+          >
+            La fecha de constitucion es <strong>requerida</strong>
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+          <mat-label>Numero de patente de comercio</mat-label>
+          <input matInput formControlName="commercial_patent_number" />
+          <mat-error
+            *ngIf="
+              formPerson.get('commercial_patent_number').hasError('required')
+            "
+          >
+            El numero de pantente de comercio es <strong>requerido</strong>
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+          <mat-label>Actividad comercial</mat-label>
+          <mat-select formControlName="id_comercial_activity">
+            <mat-option
+              *ngFor="let comercialActivity of comercialActivities"
+              [value]="comercialActivity.id_comercial_activity"
+            >
+              {{ comercialActivity.comercial_activity }}
+            </mat-option>
+          </mat-select>
+          <mat-error
+            *ngIf="formPerson.get('id_comercial_activity').hasError('required')"
+          >
+            La actividad comercial es <strong>requerida</strong>
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div>
+        <button type="submit" mat-button>Guardar</button>
+      </div>
+    </form>
+  </mat-step>
+</mat-vertical-stepper>
+<mat-progress-bar mode="determinate" [value]="valueProgress"></mat-progress-bar>

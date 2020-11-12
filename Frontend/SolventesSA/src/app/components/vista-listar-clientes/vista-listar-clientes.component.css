@@ -1,0 +1,49 @@
+ h1{
+  color: gray;
+  text-align: center;
+  top: 5px;
+}
+
+table {
+  width: 2000px;
+}
+
+td.mat-column-star {
+  width: 20px;
+  padding-right: 8px;
+}
+
+th.mat-column-position, td.mat-column-position {
+  padding-left: 8px;
+}
+
+.container-table {
+  height: 400px;
+  width: 100%;
+  overflow: auto;
+  margin-top: 6px;
+}
+.action-button {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: row-reverse;
+}
+
+.img-avatar{
+  width: 35px;
+  height: 35px;
+}
+
+.example-card {
+  display:flex;
+  overflow-x: auto;
+  text-align: center;
+  height: 50px;
+}
+.mat-form-field {
+  margin-left: auto;
+}
+#filtro{
+  overflow: auto;
+
+}

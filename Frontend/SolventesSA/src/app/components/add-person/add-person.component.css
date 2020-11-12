@@ -1,0 +1,13 @@
+.example-container {
+  display: flex;
+  flex-direction: column;
+  width: 90%;
+}
+
+input[type=file] {
+  margin: 10px 0px;
+}
+
+.example-container .mat-form-field + .mat-form-field {
+  width: 100%;
+}

@@ -1,0 +1,22 @@
+$ACI_PERS_RESOURCE_GROUP="solventeresourcegroupdev"
+$ACI_PERS_STORAGE_ACCOUNT_NAME="solventeappdbstoragedev"
+$ACI_PERS_LOCATION="southcentralus"
+$ACI_PERS_SHARE_NAME="solventeappsqlstoragefiledev"
+
+#Crear el grupo de recursos.
+az group create -l southcentralus -n $ACI_PERS_RESOURCE_GROUP
+
+# Create the storage account with the parameters
+az storage account create --resource-group $ACI_PERS_RESOURCE_GROUP --name $ACI_PERS_STORAGE_ACCOUNT_NAME --location $ACI_PERS_LOCATION --sku Standard_LRS 
+
+# Create the file share
+az storage share create --name $ACI_PERS_SHARE_NAME --account-name $ACI_PERS_STORAGE_ACCOUNT_NAME
+
+# llenar clave del storage account
+$STORAGE_KEY=$(az storage account keys list --resource-group $ACI_PERS_RESOURCE_GROUP --account-name $ACI_PERS_STORAGE_ACCOUNT_NAME --query "[0].value" --output tsv)
+echo $STORAGE_KEY
+
+# Crear sql server para solvente en modo serverless (ahorro de plata) aci
+az container create --resource-group $ACI_PERS_RESOURCE_GROUP --name solventeapp-sql-dev --image mcr.microsoft.com/mssql/server:2019-CU4-ubuntu-18.04 --environment-variables ACCEPT_EULA=Y MSSQL_SA_PASSWORD=AYzea3gvfmN6BZlkLSo5 --dns-name-label solventeapp-sql-dev  --cpu 2  --memory 2  --port 1433 --azure-file-volume-account-name $ACI_PERS_STORAGE_ACCOUNT_NAME --azure-file-volume-account-key $STORAGE_KEY --azure-file-volume-share-name $ACI_PERS_SHARE_NAME --azure-file-volume-mount-path /var/opt/mssql/data
+
+--azure-file-volume-account-name $ACI_PERS_STORAGE_ACCOUNT_NAME --azure-file-volume-account-key $STORAGE_KEY --azure-file-volume-share-name $ACI_PERS_SHARE_NAME --azure-file-volume-mount-path 

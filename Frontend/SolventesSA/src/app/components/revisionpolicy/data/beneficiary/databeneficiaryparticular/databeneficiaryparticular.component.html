@@ -1,0 +1,62 @@
+<mat-card class="shipping-card">
+  <mat-card-content>
+    <div class="container">
+      <div>
+        <img class="avatar" src="{{beneficiary.avatar}}">
+      </div>
+      <div>
+        <div class="row_list">
+          <div class="col_list">
+            <div class="row_list">
+              <div class="col_list"> <strong>id Beneficiario:</strong></div>
+              <div class="col_list">{{beneficiary.id_beneficiary}}</div>
+            </div>
+          </div>
+          <div class="col_list">
+            <div class="row_list">
+              <div class="col_list"> <strong>CUI:</strong></div>
+              <div class="col_list">{{beneficiary.cui}}</div>
+            </div>
+          </div>
+           <div class="col_list">
+            <div class="row_list">
+              <div class="col_list"> <strong>NIT:</strong></div>
+              <div class="col_list">{{beneficiary.nit}}</div>
+            </div>
+          </div>
+        </div>
+        <br>
+        <div class="row_list">
+          <div class="col_list">
+            <div class="row_list">
+              <div class="col_list"> <strong>Nombre del Fiado:</strong></div>
+              <div class="col_list">{{beneficiary.first_name+' '+beneficiary.second_name+' '+beneficiary.first_surname+' '+beneficiary.second_surname}}</div>
+            </div>
+          </div>
+        </div>
+        <br>
+        <div class="row_list">
+          <div class="col_list">
+            <div class="row_list">
+              <div class="col_list"> <strong>Departamento:</strong></div>
+              <div class="col_list">{{beneficiary.department}}</div>
+            </div>
+          </div>
+          <div class="col_list">
+            <div class="row_list">
+              <div class="col_list"> <strong>Municipio:</strong></div>
+              <div class="col_list">{{beneficiary.municipality}}</div>
+            </div>
+          </div>
+           <div class="col_list">
+            <div class="row_list">
+              <div class="col_list"> <strong>Correo Electronico:</strong></div>
+              <div class="col_list">{{beneficiary.email}}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </mat-card-content>
+</mat-card>

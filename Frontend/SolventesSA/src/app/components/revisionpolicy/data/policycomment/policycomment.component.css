@@ -1,0 +1,63 @@
+.mat-list-icon {
+  color: rgba(0, 0, 0, 0.54);
+}
+h1{
+  color: gray;
+  text-align: center;
+  top: 5px;
+}
+.full-width {
+  width: 100%;
+}
+
+.shipping-card {
+  min-width: 120px;
+  margin: 20px auto;
+}
+
+.mat-radio-button {
+  display: block;
+  margin: 5px 0;
+}
+
+.row {
+  display: grid;
+  grid-gap: 1%;
+  grid-template-columns: 1fr 2fr 1fr;
+}
+
+.row_list {
+  display: flex;
+  flex-direction: row;
+}
+
+.col_list {
+  flex: 1;
+  margin-right: 5px;
+}
+
+.col_list:last-child {
+  margin-right: 0;
+}
+.fix-col {
+  width: 180px;
+  word-break: break-all;
+  hyphens: auto;
+}
+
+.imagen{
+  overflow-y: auto;
+  height: 500px;
+  width: 500px;
+}
+.letter6{
+  font-size:10px;
+}
+.card-commet {
+  overflow-y: auto;
+  height: 250px;
+}
+.card-attachemt {
+  overflow-y: auto;
+  height: 450px;
+}

@@ -1,0 +1,96 @@
+# Docker
+# Build and push an image to Azure Container Registry
+# https://docs.microsoft.com/azure/devops/pipelines/languages/docker
+
+trigger:
+  branches:
+    include:  
+    - master
+  paths:
+    include:
+    - BackendApiSolventes/ServerApi/*
+pr: none
+resources:
+- repo: self
+
+variables:
+  # Container registry service connection established during pipeline creation
+  dockerRegistryServiceConnection: 'a0462165-4fc4-4502-af64-46ea70d98ce5'
+  imageRepository: 'backsolventeapp'
+  containerRegistry: 'solventeapp.azurecr.io'
+  dockerfilePath: './BackendApiSolventes/ServerApi/backsolventeapp.dockerfile'
+  tag: '$(Build.BuildId)'
+  
+  # Agent VM image name
+  vmImageName: 'ubuntu-latest'
+
+stages:
+- stage: Build
+  displayName: Build and push stage
+  jobs:  
+  - job: Build
+    displayName: Build
+    pool:
+      vmImage: $(vmImageName)
+    steps:
+    - task: Docker@2
+      displayName: Build and push an image to container registry
+      inputs:
+        command: buildAndPush
+        repository: $(imageRepository)
+        dockerfile: $(dockerfilePath)
+        containerRegistry: $(dockerRegistryServiceConnection)
+        tags: |
+          $(tag)
+    - task: CmdLine@2
+      inputs:
+        script: |
+          echo "pepraracion del entorno de la db"
+          echo "instalacion del cliente mssql"
+          curl https://packages.microsoft.com/keys/microsoft.asc | sudo apt-key add -
+          curl https://packages.microsoft.com/config/ubuntu/16.04/prod.list | sudo tee /etc/apt/sources.list.d/msprod.list
+          sudo apt-get update 
+          sudo apt-get install mssql-tools unixodbc-dev
+          echo 'export PATH="$PATH:/opt/mssql-tools/bin"' >> ~/.bash_profile
+          echo 'export PATH="$PATH:/opt/mssql-tools/bin"' >> ~/.bashrc
+          source ~/.bashrc
+        
+          echo "Preparacion del contenedor del sql server"
+          docker container run -d -p 1433:1433 --env "ACCEPT_EULA=Y" --env "SA_PASSWORD=rsAIUFhBnc@NmpOl7"  --name solventeapp-db -d mcr.microsoft.com/mssql/server:2017-CU8-ubuntu
+                                         
+          echo "Se crea la base de datos"
+          sqlcmd -S localhost -U sa -P rsAIUFhBnc@NmpOl7 -Q "CREATE DATABASE solventesapp"
+          
+          echo "Entramos al modelo fisico de datos"
+          cd DBandSP/MODELO\ FISICO\ DE\ DATOS/    
+
+          echo "se ejectura el script para generar la db"
+          sqlcmd -S localhost -d solventesapp -U sa -P rsAIUFhBnc@NmpOl7 -i SOLVENTESAPP.SQL 
+
+          echo "se accede a la caparte de los procedimientos almacenados"
+          cd ../PROCEDIMIENTOS\ ALMACENADOS/ 
+
+          echo "unificacion de los sp"
+          cat * > sp.sql 
+
+          echo "se ejecuta el script para generar los sp"
+          sqlcmd -S localhost -d solventesapp -U sa -P rsAIUFhBnc@NmpOl7 -i sp.sql
+
+          echo "creacion del contenedor temporal del backend"
+          docker run --name backsolventeapp -p 3000:3000 -e "NODE_ENV=$(NE)" -e "AZURE_STORAGE_ACCOUNT=$(ASA)" -e "AZURE_STORAGE_ACCESS_KEY=$(ASAK)" -e "DB_HOST=solventeapp-db" -e "DB_USER=sa" -e "DB_PASSWORD=rsAIUFhBnc@NmpOl7" -e "DB_DATABASE=solventesapp" -e "HASH_ENCRYPT=$(HA)" --link solventeapp-db:mssql -d solventeapp.azurecr.io/backsolventeapp:$(tag)
+          
+          echo "Ejecucion de las pruebas unitarias"
+          cd ../../TestUnits
+          npm install
+          npm test
+    - task: SSH@0
+      inputs:
+        sshEndpoint: 'SolventeApp Droplet'
+        runOptions: 'commands'
+        commands: |
+          docker ps -a -q --filter "name=backsolventeapp" | grep -q . && docker stop backsolventeapp && docker rm -fv backsolventeapp || exit 0
+          az login --username '$(AA)' --password '$(AP)'
+          az acr login --name solventeapp
+          docker pull solventeapp.azurecr.io/backsolventeapp:$(tag)
+          docker run --name backsolventeapp -p 3000:3000 -e "NODE_ENV=$(NE)" -e "AZURE_STORAGE_ACCOUNT=$(ASA)" -e "AZURE_STORAGE_ACCESS_KEY=$(ASAK)" -e "DB_HOST=$(DH)" -e "DB_USER=$(DU)" -e "DB_PASSWORD=$(DP)" -e "DB_DATABASE=$(DB)" -e "HASH_ENCRYPT=$(HA)" -d solventeapp.azurecr.io/backsolventeapp:$(tag)
+        readyTimeout: '20000'

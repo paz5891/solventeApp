@@ -1,0 +1,303 @@
+<form [formGroup]="formPerson" (ngSubmit)="onSubmit()">
+	<mat-vertical-stepper formArrayName="formArray" linear>
+		<!-- #Campos basicos para registrar un persona -->
+		<mat-step formGroupName="0" [stepControl]="formArray.get([0])">
+			<ng-template matStepLabel>Datos de persona</ng-template>
+			<div formArrayName="data_person" *ngFor="let person of data_person.controls; let i=index">
+				<div [formGroupName]="i">
+					<div class="example-container" *ngIf="selectedTypePerson != 1007">
+						<img [src]="avatarPreview" alt="Avatar" width="200px" height="200px">
+						<input type="file" (change)="uploadAvatar($event.target.files, i)" accept="image/*">
+						<mat-form-field>
+							<mat-label>Nombre avatar</mat-label>
+							<input matInput formControlName="avatar">
+						</mat-form-field>
+					</div>
+					<div class="example-container">
+						<mat-form-field appearance="fill">
+							<mat-label>Tipo de persona</mat-label>
+							<mat-select formControlName="id_type_person" [(value)]="selectedTypePerson"
+								(valueChange)="onChangeTypePerson()">
+								<mat-option *ngFor="let typePerson of typesPerson" [value]="typePerson.id_type_person">
+									{{typePerson.type_person}}
+								</mat-option>
+							</mat-select>
+							<mat-error *ngIf="data_person.at(i).get('id_type_person').hasError('required')">
+								El tipo de persona es <strong>requerido</strong>
+							</mat-error>
+						</mat-form-field>
+	
+						<mat-form-field appearance="fill">
+							<mat-label>Departamento</mat-label>
+							<mat-select (valueChange)="onChangeDeparment($event)">
+								<mat-option *ngFor="let department of deparments" [value]="department.id_department">
+									{{department.department}}
+								</mat-option>
+							</mat-select>
+						</mat-form-field>
+	
+						<mat-form-field appearance="fill">
+							<mat-label>Municipio</mat-label>
+							<mat-select formControlName="id_municipality">
+								<mat-option *ngFor="let municipality of municipalities"
+									[value]="municipality.id_municipality">
+									{{municipality.municipality}}
+								</mat-option>
+							</mat-select>
+							<mat-error *ngIf="data_person.at(i).get('id_municipality').hasError('required')">
+								El municipio es <strong>requerido</strong>
+							</mat-error>
+						</mat-form-field>
+	
+						<mat-form-field appearance="fill">
+							<mat-label>NIT</mat-label>
+							<input matInput formControlName="nit">
+							<mat-error *ngIf="data_person.at(i).get('nit').hasError('required')">
+								El NIT es <strong>requerido</strong>
+							</mat-error>
+						</mat-form-field>
+	
+						<mat-form-field appearance="fill">
+							<mat-label>Email</mat-label>
+							<input matInput formControlName="email">
+							<mat-error *ngIf="data_person.at(i).get('email').hasError('required')">
+								El email es <strong>requerido</strong>
+							</mat-error>
+						</mat-form-field>
+					</div>
+					
+					<div class="example-container" *ngIf="selectedTypePerson != 1007">
+						<mat-form-field appearance="fill">
+							<mat-label>CUI</mat-label>
+							<input matInput formControlName="cui">
+							<mat-error *ngIf="data_person.at(i).get('cui').hasError('required')">
+								El CUI es <strong>requerido</strong>
+							</mat-error>
+						</mat-form-field>
+
+						<mat-form-field appearance="fill">
+							<mat-label>Primer nombre</mat-label>
+							<input matInput formControlName="first_name">
+							<mat-error *ngIf="data_person.at(i).get('first_name').hasError('required')">
+								El primer nombre es <strong>requerido</strong>
+							</mat-error>
+						</mat-form-field>
+
+						<mat-form-field appearance="fill">
+							<mat-label>Segundo nombre</mat-label>
+							<input matInput formControlName="second_name">
+						</mat-form-field>
+
+						<mat-form-field appearance="fill">
+							<mat-label>Primer apellido</mat-label>
+							<input matInput formControlName="first_surname">
+							<mat-error *ngIf="data_person.at(i).get('first_surname').hasError('required')">
+								El primer apellido es <strong>requerido</strong>
+							</mat-error>
+						</mat-form-field>
+
+						<mat-form-field appearance="fill">
+							<mat-label>Segundo apellido</mat-label>
+							<input matInput formControlName="second_surname">
+						</mat-form-field>
+
+						<mat-form-field appearance="fill">
+							<mat-label>Fecha de nacimiento</mat-label>
+							<input matInput [matDatepicker]="picker" formControlName="date_of_birth">
+							<mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+							<mat-datepicker #picker></mat-datepicker>
+							<mat-error *ngIf="data_person.at(i).get('date_of_birth').hasError('required')">
+								La fecha de nacimiento es <strong>requerida</strong>
+							</mat-error>
+						</mat-form-field>
+
+						<mat-form-field appearance="fill">
+							<mat-label>Rol</mat-label>
+							<mat-select formControlName="id_rol">
+								<mat-option *ngFor="let rol of roles" [value]="rol.id_rol">
+									{{rol.rol}}
+								</mat-option>
+							</mat-select>
+							<mat-error *ngIf="data_person.at(i).get('id_rol').hasError('required')">
+								El rol es <strong>requerido</strong>
+							</mat-error>
+						</mat-form-field>
+
+						<mat-form-field appearance="fill">
+							<mat-label>Sexo</mat-label>
+							<mat-select formControlName="sexo">
+								<mat-option value="M">Masculino</mat-option>
+								<mat-option value="F">Femenino</mat-option>
+							</mat-select>
+							<mat-error *ngIf="data_person.at(i).get('sexo').hasError('required')">
+								El sexo es <strong>requerido</strong>
+							</mat-error>
+						</mat-form-field>
+					</div>
+
+					<div class="example-container" *ngIf="selectedTypePerson != 1006">
+						<mat-form-field appearance="fill">
+							<mat-label>Razon social</mat-label>
+							<input matInput formControlName="business_name">
+							<mat-error *ngIf="data_person.at(i).get('business_name').hasError('required')">
+								La razon social es <strong>requerido</strong>
+							</mat-error>
+						</mat-form-field>
+
+						<mat-form-field appearance="fill">
+							<mat-label>Fecha de constitucion</mat-label>
+							<input matInput [matDatepicker]="picker2" formControlName="constitution_date">
+							<mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+							<mat-datepicker #picker2></mat-datepicker>
+							<mat-error *ngIf="data_person.at(i).get('constitution_date').hasError('required')">
+								La fecha de constitucion es <strong>requerida</strong>
+							</mat-error>
+						</mat-form-field>
+
+						<mat-form-field appearance="fill">
+							<mat-label>Numero de patente de comercio</mat-label>
+							<input matInput formControlName="commercial_patent_number">
+							<mat-error *ngIf="data_person.at(i).get('commercial_patent_number').hasError('required')">
+								El numero de pantente de comercio es <strong>requerido</strong>
+							</mat-error>
+						</mat-form-field>
+
+						<mat-form-field appearance="fill">
+							<mat-label>Actividad comercial</mat-label>
+							<mat-select formControlName="id_comercial_activity">
+								<mat-option *ngFor="let comercialActivity of comercialActivities"
+									[value]="comercialActivity.id_comercial_activity">
+									{{comercialActivity.comercial_activity}}
+								</mat-option>
+							</mat-select>
+							<mat-error *ngIf="data_person.at(i).get('id_comercial_activity').hasError('required')">
+								La actividad comercial es <strong>requerida</strong>
+							</mat-error>
+						</mat-form-field>
+					</div>
+				</div>
+			</div>
+			<div>
+				<button mat-button matStepperPrevious type="button">Regresar</button>
+				<button mat-button matStepperNext type="button">Siguiente</button>
+			</div>
+		</mat-step>
+
+		<!-- #campos para agregar telefonos -->
+		<mat-step formGroupName="1" [stepControl]="formArray.get([1])">
+			<ng-template matStepLabel>Agregar telefonos</ng-template>
+			<button mat-button (click)="addPhone()">Agregar otro telefono</button>
+			<div formArrayName="phone_person" *ngFor="let phone of phone_person.controls; let i=index">
+				<div class="example-container" [formGroupName]="i">
+					<button *ngIf="i > 0" mat-button matSuffix mat-icon-button aria-label="eliminar"
+						(click)="removePhone(i)">
+						<mat-icon>close</mat-icon>
+					</button>
+					<mat-form-field appearance="fill">
+						<mat-label>Tipo de telefono</mat-label>
+						<mat-select formControlName="id_phone_catalog">
+							<mat-option *ngFor="let typePhone of typesPhone" [value]="typePhone.id_phone_catalog">
+								{{typePhone.type_phone}}
+							</mat-option>
+						</mat-select>
+						<mat-error *ngIf="phone_person.at(i).get('id_phone_catalog').hasError('required')">
+							El tipo de telefono es <strong>requerido</strong>
+						</mat-error>
+					</mat-form-field>
+
+					<mat-form-field appearance="fill">
+						<mat-label>Telefono</mat-label>
+						<input matInput formControlName="phone">
+						<mat-error *ngIf="phone_person.at(i).get('phone').hasError('required')">
+							El telefono es <strong>requerido</strong>
+						</mat-error>
+					</mat-form-field>
+				</div>
+			</div>
+			<div>
+				<button mat-button matStepperPrevious type="button">Regresar</button>
+				<button mat-button matStepperNext type="button">Siguiente</button>
+			</div>
+		</mat-step>
+
+		<!-- #campos para agregar direcciones -->
+		<mat-step formGroupName="2" [stepControl]="formArray.get([2])">
+			<ng-template matStepLabel>Agregar direcciones</ng-template>
+			<button mat-button (click)="addAddress()">Agregar otra direccion</button>
+			<div formArrayName="address_person" *ngFor="let address of address_person.controls; let i=index">
+				<div class="example-container" [formGroupName]="i">
+					<button *ngIf="i > 0" mat-button matSuffix mat-icon-button aria-label="eliminar" (click)="removeAddress(i)">
+						<mat-icon>close</mat-icon>
+					</button>
+					<mat-form-field appearance="fill">
+						<mat-label>Tipo de direccion</mat-label>
+						<mat-select formControlName="id_address_catalog">
+							<mat-option *ngFor="let typeAddres of typesAddress" [value]="typeAddres.id_address_catalog">
+								{{typeAddres.type_address}}
+							</mat-option>
+						</mat-select>
+						<mat-error *ngIf="address_person.at(i).get('id_address_catalog').hasError('required')">
+							El tipo de direccion es <strong>requerido</strong>
+						</mat-error>
+					</mat-form-field>
+
+					<mat-form-field appearance="fill">
+						<mat-label>Direccion</mat-label>
+						<input matInput formControlName="address">
+						<mat-error *ngIf="address_person.at(i).get('address').hasError('required')">
+							La direccion es <strong>requerida</strong>
+						</mat-error>
+					</mat-form-field>
+				</div>
+			</div>
+			<div>
+				<button mat-button matStepperPrevious type="button">Regresar</button>
+				<button mat-button matStepperNext type="button">Siguiente</button>
+			</div>
+		</mat-step>
+
+		<!-- #campos para agregar adjuntos -->
+		<mat-step formGroupName="3" [stepControl]="formArray.get([3])">
+			<ng-template matStepLabel>Agregar adjuntos</ng-template>
+			<button mat-button (click)="addAttachment()">Agregar otro documento adjunto</button>
+			<div formArrayName="attachment_person" *ngFor="let attachment of attachment_person.controls; let i=index">
+				<div class="example-container" [formGroupName]="i">
+					<button *ngIf="i > 0" mat-button matSuffix mat-icon-button aria-label="eliminar" (click)="removeAttachment(i)">
+						<mat-icon>close</mat-icon>
+					</button>
+					<input type="file" (change)="uploadFile($event.target.files, i)" accept=".pdf,image/*,.doc,.docx">
+					<mat-form-field>
+						<mat-label>Nombre archivo</mat-label>
+						<input matInput formControlName="attachment">
+						<mat-error *ngIf="attachment_person.at(i).get('attachment').hasError('required')">
+							El archivo es <strong>requerido</strong>
+						</mat-error>
+					</mat-form-field>
+
+					<mat-form-field appearance="fill">
+						<mat-label>Tipo de adjunto</mat-label>
+						<mat-select formControlName="id_attachment_catalog">
+							<mat-option *ngFor="let typeAttachment of typesAttachment"
+								[value]="typeAttachment.id_attachment_catalog">
+								{{typeAttachment.attachment}}
+							</mat-option>
+						</mat-select>
+						<mat-error *ngIf="attachment_person.at(i).get('id_attachment_catalog').hasError('required')">
+							El tipo de adjunto es <strong>requerido</strong>
+						</mat-error>
+					</mat-form-field>
+
+					<mat-form-field appearance="fill">
+						<mat-label>Descripcion</mat-label>
+						<textarea matInput formControlName="description"></textarea>
+					</mat-form-field>
+				</div>
+			</div>
+			<div>
+				<button mat-button matStepperPrevious type="button">Regresar</button>
+				<button mat-button type="submit" [disabled]="onSubmitDisable">Registrar persona</button>
+			</div>
+		</mat-step>
+	</mat-vertical-stepper>
+	<mat-progress-bar mode="determinate" [value]="valueProgress"></mat-progress-bar>
+</form>

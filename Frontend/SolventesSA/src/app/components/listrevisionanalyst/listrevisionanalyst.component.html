@@ -1,0 +1,162 @@
+<h1>Solicitudes de Póliza a Analizar</h1>
+<mat-card class="example-card">
+  <!-- <div fxLayout>
+    <mat-form-field appearance="outline">
+      <mat-label>CON/SIN Analista</mat-label>
+      <mat-select  (valueChange)="onChangeAnalyst()">
+        <mat-option *ngFor="let item of analystFilter" [value]="item.id">
+          {{item.descripcion}}
+        </mat-option>
+      </mat-select>
+      <mat-icon matSuffix>account_circle</mat-icon>
+    </mat-form-field>
+  </div>
+-->
+</mat-card>
+<div class="container-table mat-elevation-z8">
+  <table mat-table [dataSource]="items" matSort>
+    <ng-container matColumnDef="identifier">
+      <th mat-header-cell *matHeaderCellDef>identifier</th>
+      <td mat-cell *matCellDef="let item">{{ item.identifier }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="id_trust">
+      <th mat-header-cell *matHeaderCellDef>id_trust</th>
+      <td mat-cell *matCellDef="let item">{{ item.id_trust }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="id_agent">
+      <th mat-header-cell *matHeaderCellDef>id_agent</th>
+      <td mat-cell *matCellDef="let item">{{ item.id_agent }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="id_user">
+      <th mat-header-cell *matHeaderCellDef>id_user</th>
+      <td mat-cell *matCellDef="let item">{{ item.id_user }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="id_bouquet">
+      <th mat-header-cell *matHeaderCellDef>id_bouquet</th>
+      <td mat-cell *matCellDef="let item">{{ item.id_bouquet }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="bouquet">
+      <th mat-header-cell *matHeaderCellDef>bouquet</th>
+      <td mat-cell *matCellDef="let item">{{ item.bouquet }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="id_bouquet_type">
+      <th mat-header-cell *matHeaderCellDef>id_bouquet_type</th>
+      <td mat-cell *matCellDef="let item">{{ item.id_bouquet_type }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="bouquet_type">
+      <th mat-header-cell *matHeaderCellDef>bouquet_type</th>
+      <td mat-cell *matCellDef="let item">{{ item.bouquet_type }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="id_policy_status">
+      <th mat-header-cell *matHeaderCellDef>id_policy_status</th>
+      <td mat-cell *matCellDef="let item">{{ item.id_policy_status }}</td>
+    </ng-container>
+    <ng-container matColumnDef="policy_status">
+      <th mat-header-cell *matHeaderCellDef>policy_status</th>
+      <td mat-cell *matCellDef="let item">{{ item.policy_status }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="id_state">
+      <th mat-header-cell *matHeaderCellDef>id_state</th>
+      <td mat-cell *matCellDef="let item">{{ item.id_state }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="state">
+      <th mat-header-cell *matHeaderCellDef>state</th>
+      <td mat-cell *matCellDef="let item">{{ item.state }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="id_sib_period">
+      <th mat-header-cell *matHeaderCellDef>id_sib_period</th>
+      <td mat-cell *matCellDef="let item">{{ item.id_sib_period }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="end_date">
+      <th mat-header-cell *matHeaderCellDef>end_date</th>
+      <td mat-cell *matCellDef="let item">
+        {{ item.end_date | date: "dd/MM/yyyy" }}
+      </td>
+    </ng-container>
+    <ng-container matColumnDef="creation_date">
+      <th mat-header-cell *matHeaderCellDef>creation_date</th>
+      <td mat-cell *matCellDef="let item">
+        {{ item.creation_date | date: "dd/MM/yyyy" }}
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="prima">
+      <th mat-header-cell *matHeaderCellDef>prima</th>
+      <td mat-cell *matCellDef="let item">{{ item.prima }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="contract_amount">
+      <th mat-header-cell *matHeaderCellDef>contract_amount</th>
+      <td mat-cell *matCellDef="let item">{{ item.contract_amount }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="insured_amount">
+      <th mat-header-cell *matHeaderCellDef>insured_amount</th>
+      <td mat-cell *matCellDef="let item">{{ item.insured_amount }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="iva">
+      <th mat-header-cell *matHeaderCellDef>iva</th>
+      <td mat-cell *matCellDef="let item">{{ item.iva }}</td>
+    </ng-container>
+    <ng-container matColumnDef="emission_rights">
+      <th mat-header-cell *matHeaderCellDef>emission_rights</th>
+      <td mat-cell *matCellDef="let item">{{ item.emission_rights }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="financing_surcharges">
+      <th mat-header-cell *matHeaderCellDef>financing_surcharges</th>
+      <td mat-cell *matCellDef="let item">{{ item.financing_surcharges }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="cancellation_date">
+      <th mat-header-cell *matHeaderCellDef>cancellation_date</th>
+      <td mat-cell *matCellDef="let item">
+        {{ item.cancellation_date | date: "dd/MM/yyyy" }}
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="validity">
+      <th mat-header-cell *matHeaderCellDef>validity</th>
+      <td mat-cell *matCellDef="let item">{{ item.validity }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="renewal">
+      <th mat-header-cell *matHeaderCellDef>renewal</th>
+      <td mat-cell *matCellDef="let item">{{ item.renewal }}</td>
+    </ng-container>
+
+    <!-- asignar Column -->
+
+    <ng-container matColumnDef="revision">
+      <th mat-header-cell *matHeaderCellDef>Revisar</th>
+      <td mat-cell *matCellDef="let item">
+        <button
+          mat-icon-button
+          routerLink="/admin-analyst/revisionpolicy/{{ item.id_policy }}"
+        >
+          <mat-icon>check_circle_outline</mat-icon>
+        </button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+  </table>
+</div>
+<mat-paginator
+  [pageSizeOptions]="[5, 10, 20]"
+  showFirstLastButtons
+></mat-paginator>

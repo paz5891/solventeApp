@@ -1,0 +1,79 @@
+<mat-card class="shipping-card">
+  <mat-card-content>
+    <div class="row">
+      <div class="col" class="card-attachemt">
+        <h1>ADJUNTOS</h1>
+          <div *ngFor="let item of attach">
+            <mat-card class='row_list' (click)="OnOpen(item)">
+              <div class='col_list' >
+                <mat-icon mat-list-icon>folder</mat-icon>
+              </div>
+              <div class='col_list'>
+                <div class='fix-col'>
+                  {{item.attachment.split('/')[item.attachment.split('/').length-1]}}
+                </div>
+                <div> {{item.description}} </div>
+                <div><strong>{{item.attachment_catalog_policy}}</strong>  </div>
+                <div> {{item.creation_date | date: 'dd/MM/yyyy HH:mm:ss'}} </div>
+                <mat-slide-toggle color="primary" [checked]="item.check"(change)="onCheckattach(item)"></mat-slide-toggle>
+              </div>
+            </mat-card>
+            <br>
+          </div>
+      </div>
+
+      <div class="col">
+        <ng-container *ngIf="url !== undefined;">
+          <ng-container *ngIf="document===true; else elseTemplate">
+            <iframe [src]="Document()"  width="500px" height="500px" frameborder='0'></iframe>
+          </ng-container>
+          <ng-template #elseTemplate>
+            <div class="imagen">
+              <img [src]="Document()" />
+            </div>
+          </ng-template>
+        </ng-container>
+      </div>
+      <div class="col">
+        <h1>COMENTARIOS</h1>
+        <ng-container *ngIf="comment !== undefined; else commentlist">
+          <form [formGroup]="formcomment" novalidate (ngSubmit)="onSubmit()">
+            <mat-card class="shipping-card">
+              <mat-card-content>
+                <div class="row_list">
+                  <div class="col_list">
+                    <mat-form-field class="full-width">
+                      <input matInput placeholder="Comentario"  formControlName="comment">
+                    </mat-form-field>
+                  </div>
+                </div>
+              </mat-card-content>
+              <mat-card-actions>
+                <button mat-raised-button color="primary" class="btn-block" type="submit">REALIZAR COMENTARIO</button>
+              </mat-card-actions>
+            </mat-card>
+          </form>
+          <mat-card  class='card-commet'>
+            <mat-card-content *ngFor="let c of comment">
+              <mat-card>
+                <mat-card-content>
+                  <strong>{{c.first_name+' '+c.first_surname}}</strong>
+                  <p>{{c.comment}}</p>
+                  <div class="letter6">{{c.creation_date | date: 'dd/MM/yyyy HH:mm:ss'}}</div>
+                  <mat-slide-toggle color="primary" [checked]="c.check"(change)="onCheckcattachomment(c)"></mat-slide-toggle>
+                </mat-card-content>
+             </mat-card>
+            </mat-card-content>
+         </mat-card>
+        </ng-container>
+        <ng-template #commentlist>
+
+        </ng-template>
+
+
+      </div>
+    </div>
+
+
+  </mat-card-content>
+</mat-card>

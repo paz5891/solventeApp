@@ -1,0 +1,44 @@
+<h2 mat-dialog-title>Póliza</h2>
+<mat-dialog-content>
+    <div fxLayout="row" fxLayoutAlign="center center">
+        <div fxFlex="100">
+            
+            <div fxLayout="row">
+                <div fxFlex="50" class="action-blurb">
+                    <mat-form-field appearance="fill">
+                        <mat-label>creation_date</mat-label>
+                        <input
+                            matInput
+                            [matDatepicker]="picker1"
+                            
+                        />
+                        <mat-datepicker-toggle
+                            matSuffix
+                            [for]="picker1"
+                        ></mat-datepicker-toggle>
+                        <mat-datepicker #picker1></mat-datepicker>
+                    </mat-form-field>
+                </div>
+                <div fxFlex="50" class="action-blurb">
+                    <mat-form-field appearance="fill">
+                        <mat-label>end_date</mat-label>
+                        <input
+                            matInput
+                            [matDatepicker]="picker2"
+                            
+                        />
+                        <mat-datepicker-toggle
+                            matSuffix
+                            [for]="picker2"
+                        ></mat-datepicker-toggle>
+                        <mat-datepicker #picker2></mat-datepicker>
+                    </mat-form-field>
+                </div>
+            </div>
+        </div>
+    </div>
+</mat-dialog-content>
+<mat-dialog-actions>
+     <button mat-button (click)="onCancel()">Cancelar </button>
+    <button mat-raised-button color="primary" cdkFocusInitial (click)="onSave()" >Guardar</button>
+</mat-dialog-actions>

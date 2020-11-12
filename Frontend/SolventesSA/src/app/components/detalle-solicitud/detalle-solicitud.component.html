@@ -1,0 +1,201 @@
+<form [formGroup]="formDataPollicy" (ngSubmit)="onSubmit()">
+    <mat-vertical-stepper formArrayName="formArray" linear>
+        <!-- #Campos para los datos de la poliza -->
+        <mat-step formGroupName="0" [stepControl]="formArray.get([0])">
+            <ng-template matStepLabel>Datos de la solicitud</ng-template>
+            <div class="example-container">
+                <mat-form-field appearance="fill">
+                    <mat-label>Fiado</mat-label>
+                    <input type="text" matInput placeholder="Fiado" formControlName="id_trust" [matAutocomplete]="autoGroup" required>
+                    <mat-autocomplete #autoGroup="matAutocomplete">
+                        <mat-optgroup *ngFor="let group of trustGroupOptions | async" [label]="group.type_person">
+                            <mat-option *ngFor="let trust of group.objectToFilter" [value]="trust.id">
+                                {{trust.id}} - {{trust.name}}
+                            </mat-option>
+                        </mat-optgroup>
+                    </mat-autocomplete>
+                    <mat-error *ngIf="formArray.get([0]).get('id_trust').hasError('required')">
+                        El fiado es <strong>requerido</strong>
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field appearance="fill">
+                    <mat-label>Agente</mat-label>
+                    <input type="text" matInput placeholder="Agente" formControlName="id_agent" [matAutocomplete]="auto1" required>
+                    <mat-autocomplete #auto1="matAutocomplete">
+                        <mat-option *ngFor="let agent of agentOptions | async" [value]="agent.id">
+                            {{agent.id}} - {{agent.name}}
+                        </mat-option>
+                    </mat-autocomplete>
+                    <mat-error *ngIf="formArray.get([0]).get('id_agent').hasError('required')">
+                        El agente es <strong>requerido</strong>
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field appearance="fill">
+                    <mat-label>Usuario</mat-label>
+                    <input type="text" matInput placeholder="Usuario" formControlName="id_user" [matAutocomplete]="auto2" required>
+                    <mat-autocomplete #auto2="matAutocomplete">
+                        <mat-option *ngFor="let user of userOptions | async" [value]="user.id">
+                            {{user.id}} - {{user.name}}
+                        </mat-option>
+                    </mat-autocomplete>
+                    <mat-error *ngIf="formArray.get([0]).get('id_user').hasError('required')">
+                        El usuario es <strong>requerido</strong>
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field appearance="fill">
+                    <mat-label>Ramo</mat-label>
+                    <mat-select placeholder="Ramo" formControlName="id_bouquet" [(value)]="selectedBouquet" (valueChange)="onChange()" required>
+                        <mat-option *ngFor="let bouquet of bouquets" [value]="bouquet.id_bouquet">
+                            {{ bouquet.bouquet }}
+                        </mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="formArray.get([0]).get('id_bouquet').hasError('required')">
+                        El ramo es <strong>requerido</strong>
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field appearance="fill">
+                    <mat-label>Tipo Ramo</mat-label>
+                    <mat-select placeholder="Tipo Ramo" formControlName="id_bouquet_type" required>
+                        <mat-option *ngFor="let bouquetType of bouquetsType" [value]="bouquetType.id_bouquet_type">
+                            {{ bouquetType.bouquet_type }}
+                        </mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="formArray.get([0]).get('id_bouquet_type').hasError('required')">
+                        El tipo de ramo es <strong>requerido</strong>
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field appearance="fill">
+                    <mat-label>Periodo SIB</mat-label>
+                    <input type="text" matInput placeholder="Periodo SIB" formControlName="id_sib_period" [matAutocomplete]="auto3" required>
+                    <mat-autocomplete #auto3="matAutocomplete">
+                        <mat-option *ngFor="let sibPeriod of sibPeriodOptions | async" [value]="sibPeriod.id">
+                            {{sibPeriod.id}} - {{sibPeriod.name}}
+                        </mat-option>
+                    </mat-autocomplete>
+                    <mat-error *ngIf="formArray.get([0]).get('id_sib_period').hasError('required')">
+                        El periodo de emision es <strong>requerido</strong>
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field appearance="fill">
+                    <mat-label>Prima</mat-label>
+                    <input matInput placeholder="Prima" type="number" formControlName="prima" required>
+                    <mat-error *ngIf="formArray.get([0]).get('prima').hasError('required')">
+                        La prima es <strong>requerida</strong>
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field appearance="fill">
+                    <mat-label>Monto Contrato</mat-label>
+                    <input matInput placeholder="Monto Contrato" type="number" formControlName="contract_amount" required>
+                    <mat-error *ngIf="formArray.get([0]).get('contract_amount').hasError('required')">
+                        El monto del contrato es <strong>requerido</strong>
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field appearance="fill">
+                    <mat-label>Monto Asegurado</mat-label>
+                    <input matInput placeholder="Monto Asegurado" type="number" formControlName="insured_amount" required>
+                    <mat-error *ngIf="formArray.get([0]).get('insured_amount').hasError('required')">
+                        El monto asegurado es <strong>requerido</strong>
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field appearance="fill">
+                    <mat-label>IVA</mat-label>
+                    <input matInput placeholder="IVA" type="number" formControlName="iva" required>
+                    <mat-error *ngIf="formArray.get([0]).get('iva').hasError('required')">
+                        El iva es <strong>requerido</strong>
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field appearance="fill">
+                    <mat-label>Derecho de Emision</mat-label>
+                    <input matInput placeholder="Derecho de Emision" type="number" formControlName="emission_rights" required>
+                    <mat-error *ngIf="formArray.get([0]).get('emission_rights').hasError('required')">
+                        El drecho de emision es <strong>requerido</strong>
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field appearance="fill">
+                    <mat-label>Financiacion</mat-label>
+                    <input matInput placeholder="Financiacion" type="number" formControlName="financing_surcharges" required>
+                    <mat-error *ngIf="formArray.get([0]).get('financing_surcharges').hasError('required')">
+                        La financiacion es <strong>requerida</strong>
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field appearance="fill">
+                    <mat-label>Valor</mat-label>
+                    <input matInput placeholder="Valor" type="number" formControlName="validity" required>
+                    <mat-error *ngIf="formArray.get([0]).get('validity').hasError('required')">
+                        El valor es <strong>requerido</strong>
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div>
+                <button mat-button matStepperNext type="button">Siguiente</button>
+            </div>
+        </mat-step>
+
+        <!-- #campos de beneficiario -->
+        <mat-step formGroupName="1" [stepControl]="formArray.get([1])">
+            <ng-template matStepLabel>Asignar Beneficiario</ng-template>
+            <button mat-button (click)="agregarCampoBeneficiario()">Agregar otro beneficiario</button>
+            <div class="container-bf" formArrayName="beneficiary" *ngFor="let beneficiario of beneficiary.controls; let i=index">
+                <div [formGroupName]="i">
+                    <mat-form-field appearance="fill">
+                        <mat-label>Beneficiario</mat-label>
+                        <input type="text" matInput placeholder="Beneficiario" formControlName="id_beneficiary" [matAutocomplete]="auto4" required>
+                        <mat-autocomplete #auto4="matAutocomplete">
+                            <mat-option *ngFor="let beneficiary of beneficiariesOptions[i] | async" [value]="beneficiary.id">
+                                {{beneficiary.id}} - {{beneficiary.name}}
+                            </mat-option>
+                        </mat-autocomplete>
+                        <button *ngIf="i > 0" mat-button matSuffix mat-icon-button aria-label="eliminar" (click)="eliminarCampoBeneficiario(i)">
+                            <mat-icon>close</mat-icon>
+                        </button>
+                        <mat-error *ngIf="beneficiary.at(i).get('id_beneficiary').hasError('required')">
+                            El beneficiario es <strong>requerido</strong>
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+            <div>
+                <button mat-button matStepperPrevious type="button">Regresar</button>
+                <button mat-button matStepperNext type="button">Siguiente</button>
+            </div>
+        </mat-step>
+
+        <!-- #campos para los documentos de la solicitud -->
+        <mat-step formGroupName="2" [stepControl]="formArray.get([2])">
+            <ng-template matStepLabel>Documentos solicitud</ng-template>
+            <button mat-button type="button" (click)="agregarCampoDocumento()">Agregar otro documento</button>
+            <div formArrayName="attachment_policy" *ngFor="let item of attachment_policy.controls; let i = index">
+                <div class="container-bf" [formGroupName]="i">
+                    <button *ngIf="i > 0" mat-icon-button aria-label="eliminar" (click)="eliminarCampoDocumento(i)">
+                        <mat-icon>close</mat-icon>
+                    </button>
+                    <input type="file" (change)="uploadFile($event.target.files, i)" accept=".pdf,image/*,.doc,.docx" required>
+                    <mat-form-field>
+                        <mat-label>Nombre archivo</mat-label>
+                        <input matInput formControlName="attachment" required>
+                    </mat-form-field>
+                    <mat-form-field appearance="fill">
+                        <mat-label>Tipo Adjunto</mat-label>
+                        <mat-select placeholder="Tipo Adjunto" formControlName="id_attachment_catalog_policy" required>
+                            <mat-option *ngFor="let attachment of attachmentsCatalogPolicy" [value]="attachment.id_attachment_catalog_policy">
+                                {{ attachment.attachment_catalog_policy }}
+                            </mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="attachment_policy.at(i).get('id_attachment_catalog_policy').hasError('required')">
+                            El tipo de adjunto es <strong>requerido</strong>
+                        </mat-error>
+                    </mat-form-field>
+                    <mat-form-field appearance="fill">
+                        <mat-label>Descripcion</mat-label>
+                        <textarea matInput placeholder="Descripcion" formControlName="description"></textarea>
+                    </mat-form-field>
+                </div>
+            </div>
+            <div>
+                <button mat-button matStepperPrevious type="button">Regresar</button>
+                <button mat-button type="submit" [disabled]="onSubmitDisable">Enviar Solicitud</button>
+            </div>
+        </mat-step>
+    </mat-vertical-stepper>
+    <mat-progress-bar mode="determinate" [value]="valueProgress"></mat-progress-bar>
+</form>

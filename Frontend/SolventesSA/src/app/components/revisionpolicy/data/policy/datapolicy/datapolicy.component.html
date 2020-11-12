@@ -1,0 +1,109 @@
+<mat-card class="shipping-card">
+  <mat-card-content>
+    <h1>DATOS DE LA POLIZA</h1>
+    <div class="row_list">
+      <div class="col_list">
+        <div class="row_list">
+          <div class="col_list"> <strong>id Poliza:</strong></div>
+          <div class="col_list">{{policy.id_policy}}</div>
+        </div>
+      </div>
+      <div class="col_list">
+        <div class="row_list">
+          <div class="col_list"> <strong>Ramo:</strong></div>
+          <div class="col_list">{{policy.bouquet}}</div>
+        </div>
+      </div>
+       <div class="col_list">
+        <div class="row_list">
+          <div class="col_list"> <strong>Tipo de Ramos</strong></div>
+          <div class="col_list">{{policy.bouquet_type}}</div>
+        </div>
+      </div>
+    </div>
+    <br>
+    <div class="row_list">
+      <div class="col_list">
+        <div class="row_list">
+          <div class="col_list"> <strong>Fecha de Creacion:</strong></div>
+          <div class="col_list">{{policy.creation_date | date: 'dd/MM/yyyy HH:mm:ss'}}</div>
+        </div>
+      </div>
+      <div class="col_list">
+        <div class="row_list">
+          <div class="col_list"> <strong>Fecha de Finalizacion:</strong></div>
+          <div class="col_list">{{policy.end_date | date: 'dd/MM/yyyy'}}</div>
+        </div>
+      </div>
+       <div class="col_list">
+        <div class="row_list">
+          <div class="col_list"> <strong>Fecha de Cancelacion</strong></div>
+          <div class="col_list">{{policy.cancellation_date | date: 'dd/MM/yyyy'}}</div>
+        </div>
+      </div>
+    </div>
+    <br>
+    <div class="row_list">
+      <div class="col_list">
+        <div class="row_list">
+          <div class="col_list"> <strong>Estado de la poliza:</strong></div>
+          <div class="col_list">{{policy.policy_status}}</div>
+        </div>
+      </div>
+      <div class="col_list">
+        <div class="row_list">
+          <div class="col_list"> <strong>Monto Contratado:</strong></div>
+          <div class="col_list">Q.{{policy.contract_amount}}</div>
+        </div>
+      </div>
+       <div class="col_list">
+        <div class="row_list">
+          <div class="col_list"> <strong>Prima:</strong></div>
+          <div class="col_list">Q.{{policy.prima}}</div>
+        </div>
+      </div>
+    </div>
+    <br>
+    <div class="row_list">
+      <div class="col_list">
+        <div class="row_list">
+          <div class="col_list"> <strong>IVA:</strong></div>
+          <div class="col_list">Q.{{policy.iva}}</div>
+        </div>
+      </div>
+      <div class="col_list">
+        <div class="row_list">
+          <div class="col_list"> <strong>Recargos por financiación:</strong></div>
+          <div class="col_list">Q.{{policy.financing_surcharges}}</div>
+        </div>
+      </div>
+       <div class="col_list">
+        <div class="row_list">
+          <div class="col_list"> <strong>derechos de emisión</strong></div>
+          <div class="col_list">Q.{{policy.emission_rights}}</div>
+        </div>
+      </div>
+    </div>
+    <br>
+    <div class="row_list">
+      <div class="col_list">
+        <div class="row_list">
+          <div class="col_list"> <strong>Monto aseguradoIVA:</strong></div>
+          <div class="col_list">Q.{{policy.insured_amount}}</div>
+        </div>
+      </div>
+      <div class="col_list">
+        <div class="row_list">
+          <div class="col_list"> <strong>Renovacion:</strong></div>
+          <div class="col_list">{{policy.renewal}}</div>
+        </div>
+      </div>
+       <div class="col_list">
+        <div class="row_list">
+          <div class="col_list"> <strong>Validez:</strong></div>
+          <div class="col_list">{{policy.validity}}</div>
+        </div>
+      </div>
+    </div>
+  </mat-card-content>
+</mat-card>

@@ -1,0 +1,52 @@
+<div fxLayoutAlign="center center" fxFlexFill>
+  <mat-card fxFlex="30">
+    <mat-card-header>
+      <mat-card-title>Inicio de sesion</mat-card-title>
+    </mat-card-header>
+    <form
+      fxLayoutAlign="stretch"
+      fxLayout="column"
+      [formGroup]="loginForm"
+      (ngSubmit)="onSubmit()"
+    >
+      <mat-form-field appearance="fill">
+        <mat-label>Rol</mat-label>
+        <mat-select [value]="selectedRol">
+          <mat-option value="analyst">Analista</mat-option>
+          <mat-option value="agent">Agente</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Usuario</mat-label>
+        <input matInput formControlName="username" />
+        <mat-icon matSuffix>person</mat-icon>
+        <mat-error *ngIf="loginForm.controls['username'].hasError('required')">
+          El usuario es <strong>requerido</strong>
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Contraseña</mat-label>
+        <input
+          matInput
+          formControlName="password"
+          [type]="hide ? 'password' : 'text'"
+        />
+        <button
+          mat-icon-button
+          matSuffix
+          (click)="hide = !hide"
+          [attr.aria-label]="'Hide password'"
+          [attr.aria-pressed]="hide"
+        >
+          <mat-icon>{{ hide ? "visibility_off" : "visibility" }}</mat-icon>
+        </button>
+        <mat-error *ngIf="loginForm.controls['password'].hasError('required')">
+          La contraseña es <strong>requerido</strong>
+        </mat-error>
+      </mat-form-field>
+      <button mat-raised-button color="primary" type="submit">
+        Iniciar sesion
+      </button>
+    </form>
+  </mat-card>
+</div>

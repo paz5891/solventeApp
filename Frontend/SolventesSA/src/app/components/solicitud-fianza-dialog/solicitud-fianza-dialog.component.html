@@ -1,0 +1,19 @@
+<h2 mat-dialog-title>Asignar Analista</h2>
+<mat-dialog-content [formGroup]="form">
+
+  <mat-form-field appearance="fill">
+    <mat-label>Analista a asignar</mat-label>
+    <mat-select formControlName="id_user" >
+      <mat-option *ngFor="let analista of analistas" [value]="analista.id_person">
+        {{analista.first_name}} {{analista.second_name}} {{analista.first_surname}} {{analista.second_surname}}
+      </mat-option>
+    </mat-select>
+    <mat-error>
+      Analista requerido
+    </mat-error>
+  </mat-form-field>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button (click)="onCancel()" >Cancelar</button>
+  <button mat-raised-button color="primary" cdkFocusInitial (click)="onSave()">Guardar</button>
+</mat-dialog-actions>

@@ -1,0 +1,44 @@
+#Suscription
+az account list --output table
+az account set --subscription "My Demos"
+#Crear el grupo de recursos.
+az group create -l centralus -n solventeresourcegroup
+
+
+#Persist
+# Change these four parameters as needed
+$ACI_PERS_RESOURCE_GROUP="solventeresourcegroup"
+$ACI_PERS_STORAGE_ACCOUNT_NAME="solventeappdbstorage"
+$ACI_PERS_LOCATION="centralus"
+$ACI_PERS_SHARE_NAME="solventeappsqlstoragefile"
+
+
+$ACI_PERS_RESOURCE_GROUP=""
+$ACI_PERS_STORAGE_ACCOUNT_NAME=""
+$ACI_PERS_LOCATION="centralus"
+$ACI_PERS_SHARE_NAME=""
+
+
+# Create the storage account with the parameters
+az storage account create --resource-group $ACI_PERS_RESOURCE_GROUP --name $ACI_PERS_STORAGE_ACCOUNT_NAME --location $ACI_PERS_LOCATION --sku Standard_LRS 
+
+# Create the file share
+az storage share create --name $ACI_PERS_SHARE_NAME --account-name $ACI_PERS_STORAGE_ACCOUNT_NAME
+
+#Obtener la llave del storage account
+$STORAGE_KEY=$(az storage account keys list --resource-group $ACI_PERS_RESOURCE_GROUP --account-name $ACI_PERS_STORAGE_ACCOUNT_NAME --query "[0].value" --output tsv)
+echo $STORAGE_KEY
+
+# Crear sql server para solvente en modo serverless (ahorro de plata)
+az container create --resource-group solventeresourcegroup --name solventeapp-sql --image mcr.microsoft.com/mssql/server:2019-CU4-ubuntu-18.04 --environment-variables ACCEPT_EULA=Y MSSQL_SA_PASSWORD=ZfULgKbQ0F8k8Tf9AqDw --dns-name-label solventeapp-sql  --cpu 2  --memory 2  --port 1433 --azure-file-volume-account-name $ACI_PERS_STORAGE_ACCOUNT_NAME --azure-file-volume-account-key $STORAGE_KEY --azure-file-volume-share-name $ACI_PERS_SHARE_NAME --azure-file-volume-mount-path /var/opt/mssql/data
+#Docker hub imagen de linux
+docker pull mcr.microsoft.com/mssql/server
+
+
+#Bajar una imagen de azure container registry
+https://docs.microsoft.com/en-us/azure/container-registry/container-registry-get-started-docker-cli 
+docker login solventeapp.azurecr.io
+az login
+az acr login --name solventeapp
+docker pull solventeapp.azurecr.io/backsolventeapp:17
+docker run --name backsolventeapp -p 3000:3000 -d solventeapp.azurecr.io/backsolventeapp:17

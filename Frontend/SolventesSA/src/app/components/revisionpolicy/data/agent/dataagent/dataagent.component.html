@@ -1,0 +1,87 @@
+<mat-card class="shipping-card">
+  <mat-card-content>
+    <h1>DATOS DEL AGENTE</h1>
+    <div class="container">
+      <div>
+        <img class="avatar" src="{{agent.avatar}}">
+      </div>
+      <div>
+        <div class="row_list">
+          <div class="col_list">
+            <div class="row_list">
+              <div class="col_list"> <strong>id Agente:</strong></div>
+              <div class="col_list">{{agent.id_agent}}</div>
+            </div>
+          </div>
+          <div class="col_list">
+            <div class="row_list">
+              <div class="col_list"> <strong>CUI:</strong></div>
+              <div class="col_list">{{agent.cui}}</div>
+            </div>
+          </div>
+           <div class="col_list">
+            <div class="row_list">
+              <div class="col_list"> <strong>NIT:</strong></div>
+              <div class="col_list">{{agent.nit}}</div>
+            </div>
+          </div>
+        </div>
+
+
+
+        <br>
+        <div class="row_list">
+          <div class="col_list">
+            <div class="row_list">
+              <div class="col_list"> <strong>Nombre del Agente:</strong></div>
+              <div class="col_list">{{agent.first_name+' '+agent.second_name+' '+agent.first_surname+' '+agent.second_surname}}</div>
+            </div>
+          </div>
+          <div class="col_list">
+            <div class="row_list">
+              <div class="col_list"> <strong>Nombre de la Empresa:</strong></div>
+              <div class="col_list">{{agent.business_name}}</div>
+            </div>
+          </div>
+        </div>
+        <br>
+        <div class="row_list">
+          <div class="col_list">
+            <div class="row_list">
+              <div class="col_list"> <strong>Departamento:</strong></div>
+              <div class="col_list">{{agent.department}}</div>
+            </div>
+          </div>
+          <div class="col_list">
+            <div class="row_list">
+              <div class="col_list"> <strong>Municipio:</strong></div>
+              <div class="col_list">{{agent.municipality}}</div>
+            </div>
+          </div>
+           <div class="col_list">
+            <div class="row_list">
+              <div class="col_list"> <strong>Actividad Comercial:</strong></div>
+              <div class="col_list">{{agent.comercial_activity}}</div>
+            </div>
+          </div>
+        </div>
+        <br>
+        <div class="row_list">
+          <div class="col_list">
+            <div class="row_list">
+              <div class="col_list"> <strong>Numero de Patente de Comercio:</strong></div>
+              <div class="col_list">{{agent.commercial_patent_number}}</div>
+            </div>
+          </div>
+          <div class="col_list">
+            <div class="row_list">
+              <div class="col_list"> <strong>Fecha de Constitucion:</strong></div>
+              <div class="col_list">{{agent.constitution_date | date: 'dd/MM/yyyy'}}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </mat-card-content>
+</mat-card>

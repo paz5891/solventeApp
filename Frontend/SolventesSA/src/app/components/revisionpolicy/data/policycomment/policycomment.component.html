@@ -1,0 +1,31 @@
+<mat-card class="shipping-card">
+  <h1>COMENTARIOS</h1>
+    <form [formGroup]="formcomment" novalidate (ngSubmit)="onSubmit()">
+      <mat-card class="shipping-card">
+        <mat-card-content>
+          <div class="row_list">
+            <div class="col_list">
+              <mat-form-field class="full-width">
+                <input matInput placeholder="Comentario"  formControlName="comment">
+              </mat-form-field>
+            </div>
+          </div>
+        </mat-card-content>
+        <mat-card-actions>
+          <button mat-raised-button color="primary" class="btn-block" type="submit">REALIZAR COMENTARIO</button>
+        </mat-card-actions>
+      </mat-card>
+    </form>
+    <mat-card  class='card-commet'>
+      <mat-card-content *ngFor="let c of comment">
+        <mat-card>
+          <mat-card-content>
+            <strong>{{c.first_name+' '+c.first_surname}}</strong>
+            <p>{{c.comment}}</p>
+            <p>{{c.creation_date | date: 'dd/MM/yyyy HH:mm:ss'}}</p>
+            <mat-slide-toggle color="primary" [checked]="c.check"(change)="onCheck(c)"></mat-slide-toggle>
+          </mat-card-content>
+       </mat-card>
+      </mat-card-content>
+   </mat-card>
+</mat-card>

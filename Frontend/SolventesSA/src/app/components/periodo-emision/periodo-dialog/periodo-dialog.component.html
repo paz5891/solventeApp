@@ -1,0 +1,17 @@
+<h2 mat-dialog-title>{{ title }}</h2>
+<mat-dialog-content [formGroup]="form">
+  <mat-form-field appearance="fill">
+    <mat-label>Fecha de cierre</mat-label>
+    <input matInput [matDatepicker]="picker" formControlName="end_date">
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+<!--     <mat-error *ngIf="end_date.at(i).get('end_date').hasError('required')">
+      La fecha de cierre es <strong>requerido</strong>
+    </mat-error> -->
+  </mat-form-field>
+
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button (click)="onCancel()">Cancelar</button>
+  <button mat-raised-button color="primary" [disabled]="!form.valid" (click)="onSubmit()" cdkFocusInitial>Guardar</button>
+</mat-dialog-actions>
